@@ -1,0 +1,169 @@
+\documentclass[a4paper]{article}
+\input{head}
+\input{formulas.tex}
+\begin{document}
+
+%-------------------------------
+%   TITLE SECTION
+%-------------------------------
+
+\fancyhead[C]{}
+\hrule \medskip % Upper rule
+\begin{minipage}{0.295\textwidth}
+    \raggedright
+    \footnotesize
+    Maico Timmerman \hfill\\
+    10542590\hfill\\
+    maico.timmerman@gmail.com
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+    \centering
+    \large
+    Homework Assignment 5\\
+    \normalsize
+    Machine Learning 1, 17/18\\
+\end{minipage}
+\begin{minipage}{0.295\textwidth}
+    \raggedleft
+    \today\hfill\\
+\end{minipage}
+\medskip\hrule
+\bigskip
+
+%-------------------------------
+%   CONTENTS
+%-------------------------------
+
+\section*{Questions 1}
+\begin{enumerate}[label=(\alph*)]
+    \item The general equation for the unigram-model can be written as:
+
+        \begin{align}
+            P(w_1, w_2, \ldots, w_3) &= \prodt{i=1}{N} P(w_i)\\
+            &= \prodt{i=1}{N} \frac{\text{count}(w_i)}{N}\\
+        \end{align}
+
+        This is not a good solution to the \textit{their} vs. \textit{there}
+        problem. Using the unigram model, the choice between \textit{their} or
+        \textit{there} is based on the number of occurrences of these words in
+        the training data. This approach will never take into account when a
+        combination of words results in an invalid sentence.
+
+    \item The general equation for the bi-gram model can be written as:
+
+        \begin{align}
+            P(w_1, w_2, \ldots, w_3) &= P(w_1)\cdot\prodt{i=1}{N-1} P(w_{i+1}
+            \mid w_i)\\
+        \end{align}
+
+        This model will take into consideration that some occurrences of
+        their/there might not be valid after certain words. Based on the
+        statistics in the training set, the model will decide which of the two
+        words is valid after, the seen word. However, it is still possible that
+        the model will not choose the correct form.
+
+\end{enumerate}
+\section*{Question 2}
+
+\begin{enumerate}
+    \item
+        \begin{align}
+            \text{I have a dog that walks on the grass.}
+        \end{align}
+
+        Here the independence assumption is violated, because it could is
+        possible that:
+
+        \begin{align}
+            P(\text{walks} \mid \text{a}, \text{dog}) >
+            P(\text{that} \mid \text{a}, \text{dog})
+        \end{align}
+
+        However that would result into the sentence: ``I have a dog
+        walks\ldots'', resulting in an invalid sentence. Using the same
+        probabilities also a valid sentence can be constructed: ``A dog walks on
+        the grass''.
+
+    \item
+        \begin{align}
+            \text{Computers produced in a factory make mistakes too.}
+        \end{align}
+
+        violates the independence assumption, as ``make'' assumes that Computers
+        is plural. Inserting a singular noun, will result in an invalid
+        sentence: ``A computer produced in a factory make mistakes too.''. In
+        this case ``make'' should have been ``makes'', due to ``A computer''
+        being singular.
+
+    \item
+        \begin{align}
+            \text{He told him something about himself.}
+        \end{align}
+
+        violates the independence assumption, as the pronoun ``himself'' is
+        depended on ``He''. Changing ``He'' to ``She'' will render an invalid
+        sentence, as ``himself'' should then become ``herself''.
+\end{enumerate}
+
+\section*{Question 2}
+\begin{enumerate}
+    \item The transition probability matrix for the corpus is:
+
+        \begin{tabular}{c|ccccc}
+            & <s> & OTH & PER & ORG & </s>\\\hline
+            <s>& 0&$\frac{3}{115}$&$\frac{2}{115}$&0&0\\
+            OTH& 0&$\frac{15}{23}$&$\frac{1}{115}$&$\frac{7}{115}$&$\frac{1}{23}$\\
+            PER& 0&$\frac{3}{115}$&$\frac{3}{115}$&0&0\\
+            ORG& 0&$\frac{7}{115}$&0&$\frac{9}{115}$&0\\
+            </s>&0&0&0&0&0\\
+        \end{tabular}
+
+    \item
+
+        \begin{align}
+            P(\text{Obama}\mid\text{T}) &= \frac{C(\text{Obama} \mid
+            \text{T}) + 1}{C(\text{T}) + V_{\text{T}}}
+        \end{align}
+
+        Where we define $V_{\text{T}}$ as the subset of the vocabulary that has
+        the T-tag, $P(C(\text{Obama}\mid\text{T}))$ the number of times
+        ``Obama'' is tagged with the T-tag, and $C(\text{T})$ is the number of
+        words tagged with the T-tag.
+
+        Using this we calculate  $P(\text{Obama}\mid\text{PER})$ and $P(\text{Obama}\mid\text{ORG})$:
+
+        \begin{align}
+            P(\text{Obama}\mid\text{PER}) &=\frac{3+1}{6+4} = \frac{2}{5}
+        \end{align}
+
+
+        \begin{align}
+            P(\text{Obama}\mid\text{ORG}) &=\frac{1}{16+9} = \frac{1}{25}
+        \end{align}
+
+    \item Context will not be able to disambiguate between the LOC- and the
+        ORG-tag. Especially since we are only using limited set of four tags, we
+        can not disambiguate the named entity using the preceding words, as they
+        all have the OTH-tag.
+
+        For example ``at the University of Chicago Law School'' can be
+        interpreted as being handled by the organisation or be interpreted as
+        located at the university that is in Chicago.
+
+    \item Other sources of information that might help an automatic NER system
+        could be:
+
+        \begin{description}
+            \item[Capitilization] Words containing capital letter at the start
+                or in the middle are more likely to be named entities.
+            \item[Hyphenation] Words that are hyphenated are more likely to be a
+                named entity.
+            \item[Digits] words containing digits can often be labeled as named
+                entities.
+            \item[Word length] Lengthy words could be an indication for named
+                entities.
+            \item[Punctuation] Named entities like acronyms often contain dots.
+        \end{description}
+
+\end{enumerate}
+\end{document}
