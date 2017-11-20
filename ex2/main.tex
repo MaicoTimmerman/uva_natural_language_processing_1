@@ -62,10 +62,8 @@ The  Chomsky Normal Form of the grammer is written as:
 
         \begin{table}[htpb]
             \centering
-            \begin{tabular}{cccc}
-                S &$\rightarrow$ & V Small & ($0.0096\approx 0.010$)\\
-                S &$\rightarrow$ & V Obj Obj & ($0.0072\approx 0.007$)\\
-                S &$\rightarrow$ & V Obj & (0.06)
+            \begin{tabular}{cclc}
+                S &$\rightarrow$ & Subj VP & (0.018)
             \end{tabular}
         \end{table}
 
@@ -73,7 +71,9 @@ The  Chomsky Normal Form of the grammer is written as:
         \begin{table}[htpb]
             \centering
             \begin{tabular}{ccll}
-                S &$\rightarrow$ & Subj VP & (0.018)
+                S &$\rightarrow$ & V Small & ($0.0096\approx 0.010$)\\
+                S &$\rightarrow$ & V Obj Obj & ($0.0072\approx 0.007$)\\
+                S &$\rightarrow$ & V Obj & (0.06)
             \end{tabular}
         \end{table}
 
@@ -99,7 +99,7 @@ The  Chomsky Normal Form of the grammer is written as:
 
 \section*{Question 3}
 \begin{enumerate}[label=(\alph*)]
-    \item For every non-root we keep the highest incoming edge:
+    \item For every non-root we keep the highest incoming edge, from where we can see a cycle between the nodes of `plain', `bagels' and `likes':
 
         \tikzstyle{edge} = [draw,thick]
         \tikzstyle{weight} = [font=\small]
@@ -112,7 +112,7 @@ The  Chomsky Normal Form of the grammer is written as:
             \foreach \name/\x/\y in {root/1/5, likes/5/2, John/5/5, bagels/3/0, plain/0/0}
             \node[vertex] (\name) at (\x,\y) {\name};
 
-            \foreach \from/\to/\label in {root/likes/15, likes/John/20, plain/likes/20, bagels/plain/15, likes/bagels/30}
+            \foreach \from/\to/\label in {likes/John/20, plain/likes/20, bagels/plain/15, likes/bagels/30}
                 \path[edge] (\from) --  node [weight]{\label} (\to) ;
 
             \begin{pgfonlayer}{background}
@@ -137,31 +137,43 @@ The  Chomsky Normal Form of the grammer is written as:
 \end{enumerate}
 
 \section*{Question 4}
+
 \begin{enumerate}[label=(\alph*)]
+
         \item
-            We define a set $A$ as the set as created arcs, with initial value $A = \emptyset$. From this we start parsing according to Nivre's algorithm.
+
+            We define a set $A$ as the set as created arcs, with initial value
+            $A = \emptyset$. From this we start parsing according to Nivre's
+            algorithm\footnote{An efficient algorithm for projective
+            dependency parsing, Joakim Nivre, 2003}.
 
             \begin{table}[h]
                 \centering
                 \begin{tabular}{l|l|r|l}
                     Transition & Stack & Buffer & Arcs ($A$)\\
                     \hline
-                    &  & A koala eats leafs and barks & $A (\emptyset)$\\
-                    SHIFT &  A & koala eats leafs and barks & $A (\emptyset)$\\
+                    &  & A koala eats leafs and barks & $A$\\
+                    SHIFT &   A & koala eats leafs and barks & $A$\\
                     LEFT-ARC(det) & & eats leafs and barks & $A = A \cup \text{det(koala, A)}$\\
-                    SHIFT & koala & eats leafs and barks & $A$\\
-                    LEFT-ARC(nsubj) & & leafs and barks & $A = A \cup \text{nsubj(eats, koala)}$\\
-                    SHIFT & eats & leafs and barks & $A$\\
-                    RIGHT-ARC(dobj) & eats leafs  & and barks & $A=A \cup \text{dobj(eats, leafs)}$\\
-                    RIGHT-ARC(cc) & eats leafs and  & barks & $A =A \cup \text{cc(leafs, and)}$\\
-                    REDUCE & eats leafs & barks & $A$\\
-                    RIGHT-ARC(conj) & eats leafs barks & & $A=A\cup\text{conj(leafs, barks)}$\\
-                    REDUCE & eats leafs & & $A$\\
-                    REDUCE & eats & & $A$\\
+                    SHIFT &  koala & eats leafs and barks & $A$\\
+                    LEFT-ARC(nsubj) & eats & leafs and barks & $A = A \cup \text{nsubj(eats, koala)}$\\
+                    RIGHT-ARC(dobj) &  eats leafs & and barks & $A$\\
+                    RIGHT-ARC(cc) &  eats leafs and  & barks & $A =A \cup \text{cc(leafs, and)}$\\
+                    REDUCE &  eats leafs & barks & $A$\\
+                    RIGHT-ARC(conj) &  eats leafs barks & & $A=A\cup\text{conj(leafs, barks)}$\\
+                    REDUCE &  eats leafs & & $A$\\
+                    REDUCE &  eats & & $A$\\
                 \end{tabular}
             \end{table}
 
-            As our buffer is empty and there is only one word left on the stack, we see that the root of the sentence is ``eats'' and $A = \{\text{det(koala, A)}, \text{nsubj(eats, koala)}, \text{dobj(eats, leafs)}, \text{cc(leafs, and)}, \text{conj(leafs, barks)}, \text{root(root, eats)}\}$.
+            As our buffer is empty and there is only one word left on the
+            stack, we see that the root of the sentence is ``eats''. We then
+            add the root transition to $A$: $A = A\cup \text{root(root,
+            eats)}$. This results in $A = \{\text{det(koala, A)},
+            \text{nsubj(eats, koala)}, \text{dobj(eats, leafs)},
+            \text{cc(leafs, and)}, \text{conj(leafs, barks)}, \text{root(root,
+            eats)}\}$.
+
 \end{enumerate}
 \end{document}
 % vim: ft=tex tw=0
