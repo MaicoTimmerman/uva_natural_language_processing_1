@@ -40,7 +40,7 @@
 \leavevmode \leaders \hrule \hskip 0pt plus 1filll \kern 0pt % <<< change
     \raisebox{-2.5pt}{\footnotesize{#1}}\\
     \begin{tabular}[t]{@{}c@{}}
-        #3
+        \textit{#3}
     \end{tabular}
 \end{tabular}
 }
@@ -48,35 +48,35 @@
 \section*{Questions 1}
 \CCG[$<$]{
     \CCG[$>$]{
-        \CCG{The}{$NP/N$}
-        \CCG{company}{$N$}
-    }{$NP$}
+        \CCG{The}{NP/\textcolor{BlueViolet}{N}}
+        \CCG{company}{\textcolor{BlueViolet}{N}}
+    }{\textcolor{CadetBlue}{NP}}
     \CCG[$<$]{
         \CCG[$>$]{
             \CCG[$>$]{
-                \CCG{added}{$((S\backslash NP) / PP) / NP$}
+                \CCG{added}{((S\textbackslash NP) / PP) / \textcolor{RedOrange}{NP}}
                 \CCG[$>$]{
-                    \CCG{four}{$NP/N$}
-                    \CCG{Boeing-747s}{$N$}
-                }{$NP$}
-            }{$(S\backslash NP) / PP$}
+                    \CCG{four}{NP/\textcolor{OliveGreen}{N}}
+                    \CCG{Boeing-747s}{\textcolor{OliveGreen}{N}}
+                }{\textcolor{RedOrange}{NP}}
+            }{(S\textbackslash NP) / \textcolor{Cyan}{PP}}
             \CCG[$>$]{
-                \CCG{to}{$PP/NP$}
+                \CCG{to}{PP/\textcolor{Goldenrod}{NP}}
                 \CCG[$>$]{
-                    \CCG{the}{$NP/N$}
+                    \CCG{the}{NP/\textcolor{Maroon}{N}}
                     \CCG[$>$]{
-                        \CCG{two}{$N/N$}
-                        \CCG{units}{$N$}
-                    }{$N$}
-                }{$NP$}
-            }{$PP$}
-        }{$S\backslash NP$}
+                        \CCG{two}{N/\textcolor{SpringGreen}{N}}
+                        \CCG{units}{\textcolor{SpringGreen}{N}}
+                    }{\textcolor{Maroon}{N}}
+                }{\textcolor{Goldenrod}{NP}}
+            }{\textcolor{Cyan}{PP}}
+        }{\textcolor{Red}{S\textbackslash NP}}
         \CCG[$>$]{
-            \CCG{in}{$((S\backslash NP) \backslash (S \backslash NP))/NP$}
-            \CCG{1994}{$NP$}
-        }{$(S\backslash NP) \backslash (S \backslash NP)$}
-    }{$S\backslash NP$}
-}{$S$}
+            \CCG{in}{((S\textbackslash NP) \textbackslash (S \textbackslash NP))/\textcolor{MidnightBlue}{NP}}
+            \CCG{1994}{\textcolor{MidnightBlue}{NP}}
+        }{(S\textbackslash NP) \textbackslash \textcolor{Red}{S\textbackslash NP}}
+    }{S\textbackslash \textcolor{CadetBlue}{NP}}
+}{S}
 
 \section*{Questions 2}
 \begin{enumerate}
