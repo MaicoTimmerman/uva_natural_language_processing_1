@@ -105,17 +105,23 @@ We can work with log probabilities the same way we work with normal probabilitie
     We then calculate the value for the normalization constant $Z$:
 
     \begin{align}
-        Z &= \exp\left(\sumt{i}{}w_if_i(\vx, y')\right)\\
-        &= \exp\left(2.0+1.8+0.3+2.0+0.5-3.0-0.1+1.1+2.7\right)\\
-        &=\exp(7.3) = 1480.30
+        Z &= \sumt{y'}{}\exp\left(\sumt{i}{}w_if_i(\vx, y')\right)\\
+        &= \exp(1.9) + \exp(2.9) + \exp(3.0)
+        &= 44.946
     \end{align}
 
     The value for $P(y\mid\vx)$ the becomes:
 
     \begin{align}
-        y=1 : P(y\mid\vx) &= \exp(-7.3 + 1.9) \approx 0.00452\\
-        y=2 : P(y\mid\vx) &= \exp(-7.3 + 2.9) \approx 0.01228\\
-        y=3 : P(y\mid\vx) &= \exp(-7.3 + 3.0) \approx 0.01357
+        P(y=1\mid\vx) &= \frac{\exp\left(\sume{i}w_if_i(\vx, y)\right)}{Z}\\
+        &= \frac{\exp(1.9)}{Z}\\
+        &\approx 0.149\\
+        P(y=2\mid\vx) &= \frac{\exp\left(\sumt{i}{}w_if_i(\vx, y)\right)}{Z}\\
+        &= \frac{\exp(2.9)}{Z}\\
+        &\approx 0.404\\
+        P(y=3\mid\vx) &= \frac{\exp\left(\sumt{i}{}w_if_i(\vx, y)\right)}{Z}\\
+        &= \frac{\exp(3.0)}{Z}\\
+        &\approx 0.447
     \end{align}
 
 \end{enumerate}
