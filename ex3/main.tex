@@ -1,0 +1,121 @@
+\documentclass[a4paper]{article}
+\input{head}
+\input{formulas.tex}
+\begin{document}
+
+%-------------------------------
+%   TITLE SECTION
+%-------------------------------
+
+\fancyhead[C]{}
+\hrule \medskip % Upper rule
+\begin{minipage}{0.295\textwidth}
+    \raggedright
+    \footnotesize
+    Maico Timmerman \hfill\\
+    10542590\hfill\\
+    maico.timmerman@gmail.com
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+    \centering
+    \large
+    Homework Assignment 3\\
+    \normalsize
+    Natural Language Processing 1, 17/18\\
+\end{minipage}
+\begin{minipage}{0.295\textwidth}
+    \raggedleft
+    \today\hfill\\
+\end{minipage}
+\medskip\hrule
+\bigskip
+
+%-------------------------------
+%   CONTENTS
+%-------------------------------
+
+\newcommand{\CCG}[3][]{
+\begin{tabular}[t]{@{\hspace{-3pt}}c@{\hspace{-3pt}}}
+#2\\[-7pt]
+\leavevmode \leaders \hrule \hskip 0pt plus 1filll \kern 0pt % <<< change
+    \raisebox{-2.5pt}{\footnotesize{#1}}\\
+    \begin{tabular}[t]{@{}c@{}}
+        #3
+    \end{tabular}
+\end{tabular}
+}
+
+\section*{Questions 1}
+\CCG[$<$]{
+	\CCG[$>$]{
+		\CCG{The}{$NP/N$}
+		\CCG{company}{$N$}
+	}{$NP$}
+	\CCG[$<$]{
+		\CCG[$>$]{
+			\CCG[$>$]{
+				\CCG{added}{$((S\backslash NP) / PP) / NP$}
+				\CCG[$>$]{
+					\CCG{four}{$NP/N$}
+					\CCG{Boeing-747s}{$N$}
+				}{$NP$}
+			}{$(S\backslash NP) / PP$}
+			\CCG[$>$]{
+				\CCG{to}{$PP/NP$}
+				\CCG[$>$]{
+					\CCG{the}{$NP/N$}
+					\CCG[$>$]{
+						\CCG{two}{$N/N$}
+						\CCG{units}{$N$}
+					}{$N$}
+				}{$NP$}
+			}{$PP$}
+		}{$S\backslash NP$}
+		\CCG[$>$]{
+			\CCG{in}{$((S\backslash NP) \backslash (S \backslash NP))/NP$}
+			\CCG{1994}{$NP$}
+		}{$(S\backslash NP) \backslash (S \backslash NP)$}
+	}{$S\backslash NP$}
+}{$S$}
+
+\section*{Questions 2}
+
+\section*{Questions 3}
+\begin{enumerate}
+    \item
+\begin{align}
+    \ln (P(y \mid\vx)) &= \ln \left(\frac{1}{Z}\exp\left(\sumt{i}{}w_if_i(\vx, y)\right)\right)\\
+    &=-\ln(Z) + \sumt{i}{}w_if_i(\vx, y))\\
+\end{align}
+
+where $Z$ is defined as the normalization constant:
+$\sumt{y'}{}\exp\left(\sumt{i}{}w_if_i(\vx, y')\right)$
+
+\item
+
+\item
+    \begin{enumerate}
+        \item All bears are furry.
+        \item Sergii is eating pizza with a fork.
+        \item All students are lifting Marie
+        \item Marie is only lifted by students.
+    \end{enumerate}
+
+\item
+    \begin{enumerate}
+        \item
+            \begin{align}
+                \forall x.pasta(x) \Rightarrow hates(Juan, x)
+            \end{align}
+        \item
+            \begin{align}
+                \exists x. student(x) \land \forall y.class(y) \Rightarrow likes(x, y)
+            \end{align}
+    \end{enumerate}
+
+\item
+    a
+
+\end{enumerate}
+\end{document}
+% vim: ft=tex tw=0
