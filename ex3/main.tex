@@ -165,15 +165,15 @@ We can work with log probabilities the same way we work with normal probabilitie
     \end{tikzpicture}
 
     Below we have explained the semantics bottom up:
-    \begin{align}
-        N_1 &= Wiskers\\
-        N_2 &= Sam\\
-        V_t &= \lambda x.\lambda y.\exists e.Linging(e) \land Liker(e, y) \land Likee(e, x)\\
-        NP_1 = N_1.sem &= Wiskers\\
-        NP_2 = N_2.sem &= Sam\\
-        VP = V_t.sem &= \lambda y.\exists e.Linging(e) \land Liker(e, y) \land Likee(e, Sam)\\
-        S = VP.sem(NP.sem) &=\exists e.Linging(e) \land Liker(e,wiskers) \land Likee(e, Sam)
-    \end{align}
+    \begin{alignat}{4}
+        N_1.sem &&&= \text{Wiskers}\\
+        N_2.sem &&&= \text{Sam}\\
+        V_t.sem &&&= \lambda x.\lambda y.\exists e.Linging(e) \land Liker(e, y) \land Likee(e, x)\\
+        NP_1.sem &= N_1.sem &&= \text{Wiskers}\\
+        NP_2.sem &= N_2.sem &&= \text{Sam}\\
+        VP.sem &= V_t.sem(NP.sem) &&= \lambda y.\exists e.Linging(e) \land Liker(e, y) \land Likee(e, \text{Sam})\\
+        S.sem &= VP.sem(NP.sem) &&=\exists e.Linging(e) \land Liker(e,\text{Wiskers}) \land Likee(e, \text{Sam})
+    \end{alignat}
 
 
 \end{document}
